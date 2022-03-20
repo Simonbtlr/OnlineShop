@@ -1,3 +1,4 @@
+global using Microsoft.EntityFrameworkCore;
 global using OnlineShop.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
