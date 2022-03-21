@@ -13,11 +13,17 @@ public class ProductService : IProductService
         _httpClient = httpClient;
     }
     
-    public async Task GetProducts()
+    public async Task GetProductsAsync()
     {
         var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product");
 
         if (result?.Data != null)
             Products = result.Data;
+    }
+
+    public async Task<ServiceResponse<Product>> GetProductAsync(int productId)
+    {
+        var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Product>>($"api/Product/{productId}");
+        return result;
     }
 }
