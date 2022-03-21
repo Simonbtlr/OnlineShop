@@ -6,6 +6,26 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Category>().HasData(
+            new Category
+            {
+                Id = 1,
+                Name = "Книги",
+                Url = "books"
+            },
+            new Category
+            {
+                Id = 2,
+                Name = "Фильмы",
+                Url = "movies"
+            },
+            new Category
+            {
+                Id = 3,
+                Name = "Видео Игры",
+                Url = "video-games"
+            });
+        
         modelBuilder.Entity<Product>().HasData(
             new Product 
             {
@@ -21,7 +41,8 @@ public class DataContext : DbContext
                               "\n" +
                               "Книга включает в себя выпуски комиксов #1-15, а также дополнительные материалы!",
                 ImageUrl = "https://cdn1.ozone.ru/s3/multimedia-4/wc1200/6040304632.jpg",
-                Price = 1645
+                Price = 1645,
+                CategoryId = 1
             },
             new Product
             {
@@ -39,7 +60,8 @@ public class DataContext : DbContext
                               "мультсериал и не оставит равнодушным ни одного любителя отборного " +
                               "интеллектуально-трешёвого юмора и научной фантастики.",
                 ImageUrl = "https://cdn1.ozone.ru/s3/multimedia-t/wc1200/6100384409.jpg",
-                Price = 1830
+                Price = 1830,
+                CategoryId = 1
             },
             new Product
             {
@@ -50,11 +72,13 @@ public class DataContext : DbContext
                               "любимого героя сами и дарите книгу друзьям — несите слово Рика в массы, и да пребудет " +
                               "с вами наука! Вабба лабба даб даб!",
                 ImageUrl = "https://cdn1.ozone.ru/s3/multimedia-h/wc1200/6064729421.jpg",
-                Price = 975
+                Price = 975,
+                CategoryId = 1
             });
         
         base.OnModelCreating(modelBuilder);
     }
 
     public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
 }
