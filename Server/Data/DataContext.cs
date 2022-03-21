@@ -74,6 +74,94 @@ public class DataContext : DbContext
                 ImageUrl = "https://cdn1.ozone.ru/s3/multimedia-h/wc1200/6064729421.jpg",
                 Price = 975,
                 CategoryId = 1
+            },
+            new Product
+            {
+                Id = 4,
+                Title = "Офис",
+                Description = "Скучающие от безделья клерки пытаются ужиться с безумным боссом. Виртуозный ситком " +
+                              "про рабочие будни.",
+                ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/7bbd225f-e6db-4326-b600-1ac294" +
+                           "cf9d99/1920x",
+                Price = 299,
+                CategoryId = 2
+            },
+            new Product
+            {
+                Id = 5,
+                Title = "Вся правда о медведях",
+                Description = "Гризли, Панда и Белый очень простодушны, но мечтают влиться в мир людей. Трогательные " +
+                              "истории с метким юмором.",
+                ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/1704946/74925575-feba-41d1-880b-cb0eb2" +
+                           "c8bf31/1920x",
+                Price = 299,
+                CategoryId = 2
+            },
+            new Product
+            {
+                Id = 6,
+                Title = "Силиконовая долина",
+                Description = "Группа гиков живет в инкубаторе и двигает мир интернета вперед. Комедийный сериал о " +
+                              "внутренней кухне стартапов.",
+                ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/009c26e0-7336-4a70-829b-682bbe" +
+                           "119d4d/1920x",
+                Price = 299,
+                CategoryId = 2
+            },
+            new Product
+            {
+                Id = 7,
+                Title = "Half-Life: Alyx",
+                Description = "Half-Life: Alyx — это возвращение Valve во вселенную Half-Life в виртуальной " +
+                              "реальности. Это история невозможной борьбы с жестокой расой пришельцев, известной как " +
+                              "Альянс. События происходят между Half-Life и Half-Life 2.",
+                ImageUrl = "https://cdn.akamai.steamstatic.com/steam/apps/546560/header.jpg?t=1641577012",
+                Price = 1085,
+                CategoryId = 3
+            },
+            new Product
+            {
+                Id = 8,
+                Title = "Detroit: Become Human",
+                Description = "В Detroit: Become Human в ваших руках окажутся судьбы как человечества, так и " +
+                              "андроидов. Каждый сделанный вами выбор повлияет на исход игры, в которой " +
+                              "реализован одним из самых замысловатых и разветвленных сюжетов из когда-либо " +
+                              "созданных в игровой индустрии.",
+                ImageUrl = "https://cdn.akamai.steamstatic.com/steam/apps/1222140/header.jpg?t=1625648054",
+                Price = 1628,
+                CategoryId = 3
+            },
+            new Product
+            {
+                Id = 9,
+                Title = "Valheim",
+                Description = "Игра в жанре выживание, в которой вам предстоит исследовать огромный фэнтезийный мир, " +
+                              "пропитанный скандинавской мифологией и культурой викингов.",
+                ImageUrl = "https://cdn.akamai.steamstatic.com/steam/apps/892970/header.jpg?t=1647419457",
+                Price = 435,
+                CategoryId = 3
+            },
+            new Product
+            {
+                Id = 10,
+                Title = "Beat Saber",
+                Description = "Beat Saber — это VR-ритм-игра, в которой вы режете ритмы адреналиновой музыки, когда " +
+                              "они летят к вам, окруженные футуристическим миром.",
+                ImageUrl = "https://cdn.akamai.steamstatic.com/steam/apps/620980/header.jpg?t=1622461922",
+                Price = 515,
+                CategoryId = 3
+            },
+            new Product
+            {
+                Id = 11,
+                Title = "Satisfactory",
+                Description = "Satisfactory — это игра от первого лица в открытом мире, вы которой вам нужно строить " +
+                              "заводы, с упором на исследования и бои. Играйте в одиночестве или с друзьями, " +
+                              "исследуйте незнакомую планету, возводите многоэтажные заводы и вступите в конвейерный " +
+                              "рай!",
+                ImageUrl = "https://cdn.akamai.steamstatic.com/steam/apps/526870/header.jpg?t=1637686926",
+                Price = 599,
+                CategoryId = 3
             });
         
         base.OnModelCreating(modelBuilder);
