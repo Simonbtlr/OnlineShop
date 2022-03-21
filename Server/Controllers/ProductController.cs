@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Server.Data;
 
 namespace OnlineShop.Server.Controllers;
 
