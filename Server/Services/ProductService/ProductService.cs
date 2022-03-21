@@ -57,13 +57,44 @@ public class ProductService : IProductService
     {
         var response = new ServiceResponse<List<Product>>
         {
-            Data = await _context.Products
-                .Where(x => x.Title.ToLower().Contains(searchText.ToLower()) || 
-                                   x.Description.ToLower().Contains(searchText.ToLower()))
-                .Include(x => x.Variants)
-                .ToListAsync()
+            Data = await FindProductsBySearchTextAsync(searchText)
         };
 
         return response;
+    }
+    
+    public async Task<ServiceResponse<List<string>>> GetProductSearchSuggestionsAsync(string searchText)
+    {
+        var products = await FindProductsBySearchTextAsync(searchText);
+        var result = new List<string>();
+
+        foreach (var product in products)
+        {
+            if (product.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                result.Add(product.Title);
+            
+            if (product.Description is not null)
+            {
+                var punctuation = product.Description.Where(char.IsPunctuation).Distinct().ToArray();
+                var words = product.Description.Split().Select(x => x.Trim(punctuation));
+
+                foreach (var word in words)
+                {
+                    if (word.Contains(searchText, StringComparison.OrdinalIgnoreCase) && !result.Contains(word))
+                        result.Add(word);
+                }
+            }
+        }
+
+        return new ServiceResponse<List<string>> {Data = result};
+    }
+    
+    private async Task<List<Product>> FindProductsBySearchTextAsync(string searchText)
+    {
+        return await _context.Products
+            .Where(x => x.Title.ToLower().Contains(searchText.ToLower()) ||
+                        x.Description.ToLower().Contains(searchText.ToLower()))
+            .Include(x => x.Variants)
+            .ToListAsync();
     }
 }
