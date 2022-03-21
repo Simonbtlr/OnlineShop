@@ -14,5 +14,5 @@ public class Product
     public int CategoryId { get; set; }
     
     // ProductVariant
-    public List<ProductVariant> ProductVariants { get; set; } = new();
+    public List<ProductVariant> Variants { get; set; } = new();
 }

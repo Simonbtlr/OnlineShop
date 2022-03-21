@@ -14,7 +14,7 @@ public class ProductService : IProductService
         var response = new ServiceResponse<List<Product>>
         {
             Data = await _context.Products
-                .Include(x => x.ProductVariants)
+                .Include(x => x.Variants)
                 .ToListAsync()
         };
 
@@ -25,7 +25,7 @@ public class ProductService : IProductService
     {
         var response = new ServiceResponse<Product>();
         var product = await _context.Products
-            .Include(x => x.ProductVariants)
+            .Include(x => x.Variants)
             .ThenInclude(x => x.ProductType)
             .FirstOrDefaultAsync(x => x.Id == productId);
 
@@ -46,7 +46,7 @@ public class ProductService : IProductService
         {
             Data = await _context.Products
                 .Where(x => x.Category.Url.ToLower().Equals(categoryUrl))
-                .Include(x => x.ProductVariants)
+                .Include(x => x.Variants)
                 .ToListAsync()
         };
 
