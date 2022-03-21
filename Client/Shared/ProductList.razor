@@ -1,7 +1,7 @@
-@inject HttpClient Http;
+@inject HttpClient _http;
 
 <ul class="list-unstyled">
-    @foreach(var product in Products)
+    @foreach(var product in _products)
     {
         <li class="media my-3">
             <div class="media-img-wrapper mr-2">
@@ -21,13 +21,13 @@
 </ul>
 
 @code {
-    private static List<Product> Products = new();
+    private static List<Product> _products = new();
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await Http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product");
+        var result = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product");
 
         if (result?.Data != null)
-            Products = result.Data; 
+            _products = result.Data; 
     }
 }
