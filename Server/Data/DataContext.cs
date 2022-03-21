@@ -115,7 +115,7 @@ public class DataContext : DbContext
                 Description = "Half-Life: Alyx — это возвращение Valve во вселенную Half-Life в виртуальной " +
                               "реальности. Это история невозможной борьбы с жестокой расой пришельцев, известной как " +
                               "Альянс. События происходят между Half-Life и Half-Life 2.",
-                ImageUrl = "https://cdn.akamai.steamstatic.com/steam/apps/546560/header.jpg?t=1641577012",
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/ru/b/bb/Half-Life_Alyx_Coverart.jpg",
                 Price = 1085,
                 CategoryId = 3
             },
@@ -127,7 +127,7 @@ public class DataContext : DbContext
                               "андроидов. Каждый сделанный вами выбор повлияет на исход игры, в которой " +
                               "реализован одним из самых замысловатых и разветвленных сюжетов из когда-либо " +
                               "созданных в игровой индустрии.",
-                ImageUrl = "https://cdn.akamai.steamstatic.com/steam/apps/1222140/header.jpg?t=1625648054",
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/ru/e/ee/Detroit_Become_Human.jpg",
                 Price = 1628,
                 CategoryId = 3
             },
@@ -137,7 +137,7 @@ public class DataContext : DbContext
                 Title = "Valheim",
                 Description = "Игра в жанре выживание, в которой вам предстоит исследовать огромный фэнтезийный мир, " +
                               "пропитанный скандинавской мифологией и культурой викингов.",
-                ImageUrl = "https://cdn.akamai.steamstatic.com/steam/apps/892970/header.jpg?t=1647419457",
+                ImageUrl = "https://elamigosedition.com/uploads/posts/2021-02/1613136021_valheim-cover-download.webp",
                 Price = 435,
                 CategoryId = 3
             },
@@ -147,7 +147,7 @@ public class DataContext : DbContext
                 Title = "Beat Saber",
                 Description = "Beat Saber — это VR-ритм-игра, в которой вы режете ритмы адреналиновой музыки, когда " +
                               "они летят к вам, окруженные футуристическим миром.",
-                ImageUrl = "https://cdn.akamai.steamstatic.com/steam/apps/620980/header.jpg?t=1622461922",
+                ImageUrl = "https://i.redd.it/roocnhykls851.png",
                 Price = 515,
                 CategoryId = 3
             },
@@ -159,7 +159,7 @@ public class DataContext : DbContext
                               "заводы, с упором на исследования и бои. Играйте в одиночестве или с друзьями, " +
                               "исследуйте незнакомую планету, возводите многоэтажные заводы и вступите в конвейерный " +
                               "рай!",
-                ImageUrl = "https://cdn.akamai.steamstatic.com/steam/apps/526870/header.jpg?t=1637686926",
+                ImageUrl = "https://cdn.ananasposter.ru/image/cache/catalog/poster/games/80/26094-1000x830.jpg",
                 Price = 599,
                 CategoryId = 3
             });
