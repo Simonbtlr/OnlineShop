@@ -55,7 +55,8 @@ public class DataContext : DbContext
                               "\n" +
                               "Книга включает в себя выпуски комиксов #1-15, а также дополнительные материалы!",
                 ImageUrl = "https://cdn1.ozone.ru/s3/multimedia-4/wc1200/6040304632.jpg",
-                CategoryId = 1
+                CategoryId = 1,
+                Featured = true
             },
             new Product
             {
@@ -104,7 +105,8 @@ public class DataContext : DbContext
                               "истории с метким юмором.",
                 ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/1704946/74925575-feba-41d1-880b-cb0eb2" +
                            "c8bf31/1920x",
-                CategoryId = 2
+                CategoryId = 2,
+                Featured = true
             },
             new Product
             {
@@ -153,7 +155,8 @@ public class DataContext : DbContext
                 Description = "Beat Saber — это VR-ритм-игра, в которой вы режете ритмы адреналиновой музыки, когда " +
                               "они летят к вам, окруженные футуристическим миром.",
                 ImageUrl = "https://i.redd.it/roocnhykls851.png",
-                CategoryId = 3
+                CategoryId = 3,
+                Featured = true
             },
             new Product
             {
