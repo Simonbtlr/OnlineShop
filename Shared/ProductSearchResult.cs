@@ -1,3 +1,5 @@
+using OnlineShop.Shared.Models;
+
 namespace OnlineShop.Shared;
 
 public class ProductSearchResult

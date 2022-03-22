@@ -1,3 +1,6 @@
+using OnlineShop.Shared.DTO;
+using OnlineShop.Shared.Models;
+
 namespace OnlineShop.Client.Services.CategoryService;
 
 public class CategoryService : ICategoryService

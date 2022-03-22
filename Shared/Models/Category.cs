@@ -1,4 +1,4 @@
-namespace OnlineShop.Shared;
+namespace OnlineShop.Shared.Models;
 
 public class Category
 {

@@ -1,4 +1,5 @@
 @inject IProductService _productService;
+@using OnlineShop.Shared.Models
 @implements IDisposable
 
 @if (_productService.Products == null || _productService.Products.Count == 0)
