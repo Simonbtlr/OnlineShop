@@ -9,6 +9,10 @@ public class ProductService : IProductService
     public List<Product> Products { get; set; } = new();
 
     public string Message { get; set; } = "Загрузка товаров...";
+    public string LastSearchText { get; set; } = string.Empty;
+
+    public int CurrentPage { get; set; } = 1;
+    public int PageCount { get; set; } = 0;
 
     public ProductService(HttpClient http)
     {
@@ -24,6 +28,12 @@ public class ProductService : IProductService
 
         if (result?.Data != null)
             Products = result.Data;
+
+        CurrentPage = 1;
+        PageCount = 0;
+
+        if (Products.Count == 0)
+            Message = "Товары не найдены.";
         
         ProductsChanged.Invoke();
     }
@@ -34,13 +44,17 @@ public class ProductService : IProductService
         return result;
     }
 
-    public async Task SearchProductsAsync(string searchText)
+    public async Task SearchProductsAsync(string searchText, int page)
     {
-        var result =
-            await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/product/search/{searchText}");
+        var result = await _http.GetFromJsonAsync<ServiceResponse<ProductSearchResult>>
+                ($"api/product/search/{searchText}/{page}");
 
         if (result?.Data is not null)
-            Products = result.Data;
+        {
+            Products = result.Data.Products;
+            CurrentPage = result.Data.CurrentPage;
+            PageCount = result.Data.Pages;
+        }
 
         if (Products.Count == 0)
             Message = "Товары не найдены.";
