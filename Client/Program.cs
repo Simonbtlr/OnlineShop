@@ -1,5 +1,9 @@
 global using System.Net.Http.Json;
+global using System.Net.Http.Headers;
+global using System.Text.Json;
+global using System.Security.Claims;
 global using Blazored.LocalStorage;
+global using Microsoft.AspNetCore.Components.Authorization;
 global using OnlineShop.Shared;
 global using OnlineShop.Shared.DTO.Shop;
 global using OnlineShop.Shared.DTO.User;
@@ -20,6 +24,9 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+builder.Services.AddOptions();
+builder.Services.AddAuthorizationCore();
 builder.Services.AddBlazoredLocalStorage();
 
 await builder.Build().RunAsync();
