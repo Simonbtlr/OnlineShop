@@ -10,6 +10,7 @@ global using OnlineShop.Server.Services.CategoryService;
 global using OnlineShop.Shared;
 global using OnlineShop.Shared.DTO;
 global using OnlineShop.Shared.DTO.Shop;
+global using OnlineShop.Shared.DTO.User;
 global using OnlineShop.Shared.Models.User;
 
 var builder = WebApplication.CreateBuilder(args);
