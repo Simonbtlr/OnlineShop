@@ -1,0 +1,29 @@
+@page "/login"
+
+<PageTitle>Авторизация</PageTitle>
+
+<h3>Авторизация</h3>
+
+<EditForm Model="_user" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="email">Email</label>
+        <InputText id="email" @bind-Value="_user.Email" class="form-control"/>
+        <ValidationMessage For="@(() => _user.Email)" />
+    </div>
+    <div class="mb-3">
+        <label for="password">Пароль</label>
+        <InputText id="password" @bind-Value="_user.Password" class="form-control" type="password"/>
+        <ValidationMessage For="@(() => _user.Password)" />
+    </div>
+    <button type="submit" class="btn btn-primary">Войти</button>
+</EditForm>
+
+@code {
+    private readonly UserLogin _user = new();
+
+    private async Task HandleLogin()
+    {
+        Console.WriteLine("Впустите меня! :)");
+    }
+}
