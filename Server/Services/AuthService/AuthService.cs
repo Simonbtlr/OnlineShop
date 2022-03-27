@@ -34,6 +34,16 @@ public class AuthService : IAuthService
         return await _context.Users.AnyAsync(x => x.Email.ToLower().Equals(email.ToLower()));
     }
 
+    public async Task<ServiceResponse<string>> LoginAsync(string email, string password)
+    {
+        var response = new ServiceResponse<string>
+        {
+            Data = "token"
+        };
+
+        return response;
+    }
+
     private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
     {
         using (var hmac = new HMACSHA512())
