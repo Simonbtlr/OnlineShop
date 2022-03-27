@@ -1,7 +1,8 @@
 global using System.Net.Http.Json;
 global using Blazored.LocalStorage;
 global using OnlineShop.Shared;
-global using OnlineShop.Shared.DTO;
+global using OnlineShop.Shared.DTO.Shop;
+global using OnlineShop.Shared.DTO.User;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using OnlineShop.Client;
