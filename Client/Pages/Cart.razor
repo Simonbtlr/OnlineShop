@@ -1,0 +1,53 @@
+@page "/cart"
+@inject ICartService _cartService
+
+<PageTitle>Корзина</PageTitle>
+<h3>Корзина</h3>
+
+@if (_cartProduct is null || _cartProduct.Count == 0)
+{
+    <span>@_message</span>
+}
+else
+{
+    <div>
+        @foreach (var cartProduct in _cartProduct)
+        {
+            <div class="container">
+                <div class="image-wrapper">
+                    <img src="@cartProduct.ImageUrl" class="image"/>
+                </div>
+                <div class="name">
+                    <h5>
+                        <a href="/product/@cartProduct.ProductId">
+                            @cartProduct.Title
+                        </a>
+                        <span>@cartProduct.ProductType</span>
+                    </h5>
+                </div>
+                <div class="cart-product-price">
+                    @cartProduct.Price₽
+                </div>
+            </div>
+        }
+        <div class="cart-product-price">
+            Итого (@_cartProduct.Count): @_cartProduct.Sum(x => x.Price)₽
+        </div>
+    </div>
+}
+
+@code {
+    List<CartProductResponse> _cartProduct;
+    string _message = "Загрузка корзины...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if ((await _cartService.GetCartItemsAsync()).Count == 0)
+        {
+            _message = "Ваша корзина пуста.";
+            _cartProduct = new List<CartProductResponse>();
+        }
+        else
+            _cartProduct = await _cartService.GetCartProductsAsync();
+    }
+}
