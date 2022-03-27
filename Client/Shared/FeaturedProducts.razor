@@ -1,7 +1,9 @@
 @inject IProductService _productService
 @implements IDisposable
 
-<center><h2>Товары дня</h2></center>
+<center>
+    <h2>Товары дня</h2>
+</center>
 @if (_productService.Products is null || _productService.Products.Count == 0)
 {
     <span>@_productService.Message</span>

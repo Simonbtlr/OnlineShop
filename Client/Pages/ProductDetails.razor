@@ -1,6 +1,4 @@
 @page "/product/{id:int}"
-@using OnlineShop.Shared.Models
-@using OnlineShop.Shared.Models.Shop
 @inject IProductService _productService;
 @inject ICartService _cartService;
 
@@ -36,7 +34,7 @@ else
                 }
                 <h4 class="price">@GetSelectedVariant().Price₽</h4>
             }
-            <button class="btn btn-primary" @onclick="AddToCart">
+            <button class="btn btn-primary" @onclick="AddToCartAsync">
                 <i class="oi oi-cart"></i>&nbsp;&nbsp;&nbsp;Добавить в корзину
             </button>
         </div>
@@ -51,7 +49,7 @@ else
     [Parameter]
     public int Id { get; set; }
 
-    protected async override Task OnParametersSetAsync()
+    protected override async Task OnParametersSetAsync()
     {
         _message = "Загрузка Товара...";
         var result = await _productService.GetProductAsync(Id);
@@ -74,7 +72,7 @@ else
         return variant;
     }
 
-    private async Task AddToCart()
+    private async Task AddToCartAsync()
     {
         var productVariant = GetSelectedVariant();
         var cartItem = new CartItem

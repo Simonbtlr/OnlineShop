@@ -2,7 +2,7 @@
 @inject IProductService _productService
 
 <div class="input-group">
-    <input @bind-value="_searchText" @bind-value:event="oninput" type="search" list="products" @onkeyup="HandleSearch"
+    <input @bind-value="_searchText" @bind-value:event="oninput" type="search" list="products" @onkeyup="HandleSearchAsync"
            class="form-control" placeholder="Поиск..." @ref="_searchInput" />
     <datalist id="products">
         @foreach (var suggestion in _suggestions)
@@ -35,7 +35,7 @@
         _navigationManager.NavigateTo($"search/{_searchText}/1");
     }
 
-    private async Task HandleSearch(KeyboardEventArgs args)
+    private async Task HandleSearchAsync(KeyboardEventArgs args)
     {
         if (args.Key is null or "Enter")
             SearchProducts();

@@ -1,8 +1,8 @@
 @page "/cart"
-@using OnlineShop.Shared.DTO.Shop
 @inject ICartService _cartService
 
 <PageTitle>Корзина</PageTitle>
+
 <h3>Корзина</h3>
 
 @if (_cartProduct is null || _cartProduct.Count == 0)
@@ -27,9 +27,9 @@ else
                     <span>@product.ProductType</span>
                     <br />
                     <input type="number" value="@product.Quantity" min="1" class="form-control input-quantity"
-                           @onchange="@(e => UpdateQuantity(e, product))" />
+                           @onchange="@(e => UpdateQuantityAsync(e, product))" />
                     <button class="btn-delete"
-                            @onclick="@(() => RemoveProductFromCart(product.ProductId, product.ProductTypeId))">
+                            @onclick="@(() => RemoveProductFromCartAsync(product.ProductId, product.ProductTypeId))">
                         Удалить из корзины
                     </button>
                 </div>
@@ -50,16 +50,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadCart();
+        await LoadCartAsync();
     }
 
-    private async Task RemoveProductFromCart(int productId, int productTypeId)
+    private async Task RemoveProductFromCartAsync(int productId, int productTypeId)
     {
         await _cartService.RemoveProductsFromCartAsync(productId, productTypeId);
-        await LoadCart();
+        await LoadCartAsync();
     }
 
-    private async Task LoadCart()
+    private async Task LoadCartAsync()
     {
         if ((await _cartService.GetCartItemsAsync()).Count == 0)
         {
@@ -70,7 +70,7 @@ else
             _cartProduct = await _cartService.GetCartProductsAsync();
     }
 
-    private async Task UpdateQuantity(ChangeEventArgs e, CartProductResponse product)
+    private async Task UpdateQuantityAsync(ChangeEventArgs e, CartProductResponse product)
     {
         product.Quantity = int.Parse(e.Value.ToString());
 

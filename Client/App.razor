@@ -1,4 +1,7 @@
-﻿<CascadingAuthenticationState>
+﻿@using OnlineShop.Client.Shared
+@using Microsoft.AspNetCore.Components.Routing
+
+<CascadingAuthenticationState>
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(ShopLayout)">

@@ -1,6 +1,5 @@
 ﻿@page "/fetchdata"
-@using OnlineShop.Shared
-@inject HttpClient Http
+@inject HttpClient _httpClient
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -42,6 +41,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        forecasts = await _httpClient.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
     }
 }

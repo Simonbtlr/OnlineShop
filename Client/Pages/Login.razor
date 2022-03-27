@@ -1,5 +1,4 @@
 @page "/login"
-@using Microsoft.AspNetCore.WebUtilities
 @inject IAuthService _authService
 @inject ILocalStorageService _localStorage
 @inject NavigationManager _navigationManager
@@ -9,7 +8,7 @@
 
 <h3>Авторизация</h3>
 
-<EditForm Model="_user" OnValidSubmit="HandleLogin">
+<EditForm Model="_user" OnValidSubmit="HandleLoginAsync">
     <DataAnnotationsValidator />
     <div class="mb-3">
         <label for="email">Email</label>
@@ -40,7 +39,7 @@
             _returnUrl = url;
     }
 
-    private async Task HandleLogin()
+    private async Task HandleLoginAsync()
     {
         var result = await _authService.LoginAsync(_user);
 

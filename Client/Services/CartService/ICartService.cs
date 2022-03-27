@@ -1,5 +1,3 @@
-using OnlineShop.Shared.DTO.Shop;
-
 namespace OnlineShop.Client.Services.CartService;
 
 public interface ICartService
