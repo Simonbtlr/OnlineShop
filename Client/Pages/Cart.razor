@@ -11,33 +11,34 @@
 else
 {
     <div>
-        @foreach (var cartProduct in _cartProduct)
+        @foreach (var product in _cartProduct)
         {
             <div class="container">
                 <div class="image-wrapper">
-                    <img src="@cartProduct.ImageUrl" class="image"/>
+                    <img src="@product.ImageUrl" class="image"/>
                 </div>
                 <div class="name">
                     <h5>
-                        <a href="/product/@cartProduct.ProductId">
-                            @cartProduct.Title
+                        <a href="/product/@product.ProductId">
+                            @product.Title
                         </a>
-                        <span>@cartProduct.ProductType</span>
+                        <span>@product.ProductType</span>
                         <br />
+                        <input type="number" value="@product.Quantity" min="1" class="form-control input-quantity"
+                               @onchange="@(e => UpdateQuantity(e, product))" />
                         <button class="btn-delete" 
-                                @onclick="@(() => 
-                                              RemoveProductFromCart(cartProduct.ProductId, cartProduct.ProductTypeId))">
+                                @onclick="@(() => RemoveProductFromCart(product.ProductId, product.ProductTypeId))">
                             Удалить из корзины
                         </button>
                     </h5>
                 </div>
                 <div class="cart-product-price">
-                    @cartProduct.Price₽
+                    @(product.Price * product.Quantity)₽
                 </div>
             </div>
         }
         <div class="cart-product-price">
-            Итого (@_cartProduct.Count): @_cartProduct.Sum(x => x.Price)₽
+            Итого (@_cartProduct.Count): @_cartProduct.Sum(x => x.Price * x.Quantity)₽
         </div>
     </div>
 }
@@ -66,5 +67,15 @@ else
         }
         else
             _cartProduct = await _cartService.GetCartProductsAsync();
+    }
+
+    private async Task UpdateQuantity(ChangeEventArgs e, CartProductResponse product)
+    {
+        product.Quantity = int.Parse(e.Value.ToString());
+
+        if (product.Quantity < 1)
+            product.Quantity = 1;
+        
+        await _cartService.UpdateQuantityAsync(product);
     }
 }
