@@ -3,7 +3,7 @@ using OnlineShop.Shared.DTO.User;
 
 namespace OnlineShop.Server.Controllers;
 
-[Microsoft.AspNetCore.Components.Route("api/[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase
 {
@@ -41,7 +41,7 @@ public class AuthController : ControllerBase
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var response = await _authService.ChangePasswordAsync(int.Parse(userId), password);
-
+        
         if (!response.Success)
             BadRequest(response);
         

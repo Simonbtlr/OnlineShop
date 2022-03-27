@@ -14,7 +14,6 @@ global using OnlineShop.Shared.Models.Shop;
 global using OnlineShop.Shared.Models.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
