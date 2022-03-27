@@ -5,6 +5,7 @@ global using OnlineShop.Shared.DTO;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using OnlineShop.Client;
+using OnlineShop.Client.Services.AuthService;
 using OnlineShop.Client.Services.CartService;
 using OnlineShop.Client.Services.ProductService;
 using OnlineShop.Client.Services.CategoryService;
@@ -17,6 +18,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddBlazoredLocalStorage();
 
 await builder.Build().RunAsync();
