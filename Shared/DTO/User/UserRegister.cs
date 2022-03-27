@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace OnlineShop.Shared.Models.User;
+namespace OnlineShop.Shared.DTO.User;
 
 public class UserRegister
 {

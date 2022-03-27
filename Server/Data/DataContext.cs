@@ -1,5 +1,6 @@
 using OnlineShop.Shared.Models;
 using OnlineShop.Shared.Models.Shop;
+using OnlineShop.Shared.Models.User;
 
 namespace OnlineShop.Server.Data;
 
@@ -292,4 +293,5 @@ public class DataContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<ProductType> ProductTypes { get; set; }
     public DbSet<ProductVariant> ProductVariants { get; set; }
+    public DbSet<User> Users { get; set; }
 }
