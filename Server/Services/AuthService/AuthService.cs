@@ -63,6 +63,31 @@ public class AuthService : IAuthService
         return response;
     }
 
+    public async Task<ServiceResponse<bool>> ChangePasswordAsync(int userId, string password)
+    {
+        var user = await _context.Users.FindAsync(userId);
+
+        if (user is null)
+            return new ServiceResponse<bool>
+            {
+                Success = false, 
+                Message = "Пользователь не найден"
+            };
+        
+        CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
+
+        user.PasswordHash = passwordHash;
+        user.PasswordSalt = passwordSalt;
+
+        await _context.SaveChangesAsync();
+
+        return new ServiceResponse<bool>
+        {
+            Data = true, 
+            Message = "Пароль был изменен."
+        };
+    }
+
     private string CreateToken(User user)
     {
         var claims = new List<Claim>
