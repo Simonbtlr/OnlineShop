@@ -1,3 +1,5 @@
+global using System.Text;
+global using System.Security.Cryptography;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using OnlineShop.Server.Data;
