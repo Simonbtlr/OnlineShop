@@ -7,4 +7,5 @@ public interface ICartService
     Task<List<CartItem>> GetCartItemsAsync();
     Task<List<CartProductResponse>> GetCartProductsAsync();
     Task RemoveProductsFromCartAsync(int productId, int productTypeId);
+    Task UpdateQuantityAsync(CartProductResponse product);
 }
