@@ -1,8 +1,3 @@
-using OnlineShop.Shared.DTO;
-using OnlineShop.Shared.DTO.Shop;
-using OnlineShop.Shared.Models;
-using OnlineShop.Shared.Models.Shop;
-
 namespace OnlineShop.Server.Services.ProductService;
 
 public interface IProductService

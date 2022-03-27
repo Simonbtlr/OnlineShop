@@ -1,7 +1,3 @@
-using OnlineShop.Shared.Models;
-using OnlineShop.Shared.Models.Shop;
-using OnlineShop.Shared.Models.User;
-
 namespace OnlineShop.Server.Data;
 
 public class DataContext : DbContext

@@ -1,20 +1,19 @@
 global using System.Text;
-global using System.Security.Cryptography;
+global using System.Security.Claims;
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.EntityFrameworkCore;
 global using OnlineShop.Server.Data;
 global using OnlineShop.Server.Services.AuthService;
 global using OnlineShop.Server.Services.CartService;
-global using OnlineShop.Server.Services.ProductService;
 global using OnlineShop.Server.Services.CategoryService;
+global using OnlineShop.Server.Services.ProductService;
 global using OnlineShop.Shared;
-global using OnlineShop.Shared.DTO;
 global using OnlineShop.Shared.DTO.Shop;
-global using OnlineShop.Shared.DTO.User;
+global using OnlineShop.Shared.Models.Shop;
 global using OnlineShop.Shared.Models.User;
-global using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

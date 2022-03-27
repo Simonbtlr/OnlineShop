@@ -1,8 +1,9 @@
-using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using OnlineShop.Shared.DTO.User;
 
 namespace OnlineShop.Server.Controllers;
 
-[Route("api/[controller]")]
+[Microsoft.AspNetCore.Components.Route("api/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase
 {
