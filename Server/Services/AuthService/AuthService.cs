@@ -1,12 +1,18 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+
 namespace OnlineShop.Server.Services.AuthService;
 
 public class AuthService : IAuthService
 {
     private readonly DataContext _context;
+    private readonly IConfiguration _configuration;
 
-    public AuthService(DataContext context)
+    public AuthService(DataContext context, IConfiguration configuration)
     {
         _context = context;
+        _configuration = configuration;
     }
 
     public async Task<ServiceResponse<int>> RegisterAsync(User user, string password)
@@ -51,10 +57,28 @@ public class AuthService : IAuthService
         }
         else
         {
-            response.Data = "token";
+            response.Data = CreateToken(user);
         }
 
         return response;
+    }
+
+    private string CreateToken(User user)
+    {
+        var claims = new List<Claim>
+        {
+            new (ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new (ClaimTypes.Name, user.Email)
+        };
+        var key =
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.UtcNow.AddDays(1),
+            signingCredentials: creds);
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+        return jwt;
     }
 
     private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
