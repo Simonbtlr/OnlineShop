@@ -1,5 +1,5 @@
 @page "/register"
-@using OnlineShop.Shared.DTO.User
+@inject IAuthService _authService
 
 <PageTitle>Регистрация</PageTitle>
 
@@ -23,13 +23,20 @@
         <ValidationMessage For="@(() => _user.ConfirmPassword)" />
     </div>
     <button type="submit" class="btn btn-primary">Зарегистирироваться</button>
+    <div class="text-danger">
+        <span>@_errorMessage</span>
+    </div>
 </EditForm>
 
 @code {
     private readonly UserRegister _user = new();
 
-    private void HandleRegistration()
+    private string _errorMessage = string.Empty;
+    
+    private async Task HandleRegistration()
     {
-        Console.WriteLine($"Зарегистрирован пользователь с Email: {_user.Email}.");
+        var result = await _authService.RegisterAsync(_user);
+
+        _errorMessage = !result.Success ? result.Message : string.Empty;
     }
 }
