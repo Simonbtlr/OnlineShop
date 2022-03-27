@@ -1,4 +1,7 @@
 @page "/login"
+@inject IAuthService _authService
+@inject ILocalStorageService _localStorage
+@inject NavigationManager _navigationManager
 
 <PageTitle>Авторизация</PageTitle>
 
@@ -18,12 +21,26 @@
     </div>
     <button type="submit" class="btn btn-primary">Войти</button>
 </EditForm>
+<div class="text-danger">
+    <span>@_errorMessage</span>
+</div>
 
 @code {
     private readonly UserLogin _user = new();
+    
+    private string _errorMessage = string.Empty;
 
     private async Task HandleLogin()
     {
-        Console.WriteLine("Впустите меня! :)");
+        var result = await _authService.LoginAsync(_user);
+
+        if (result.Success)
+        {
+            _errorMessage = string.Empty;
+            await _localStorage.SetItemAsync("authToken", result.Data);
+            _navigationManager.NavigateTo("");
+        }
+        else
+            _errorMessage = result.Message;
     }
 }
