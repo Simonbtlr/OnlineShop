@@ -7,6 +7,8 @@ public class CartService : ICartService
     private readonly ILocalStorageService _localStorage;
     private readonly HttpClient _httpClient;
 
+    private const string Key = "cart";
+
     public CartService(ILocalStorageService localStorage, HttpClient httpClient)
     {
         _localStorage = localStorage;
@@ -15,7 +17,7 @@ public class CartService : ICartService
 
     public async Task AddToCartAsync(CartItem cartItem)
     {
-        var cart = await _localStorage.GetItemAsync<List<CartItem>>("cart") ?? new List<CartItem>();
+        var cart = await _localStorage.GetItemAsync<List<CartItem>>(Key) ?? new List<CartItem>();
 
         cart.Add(cartItem);
 
@@ -25,17 +27,33 @@ public class CartService : ICartService
 
     public async Task<List<CartItem>> GetCartItemsAsync()
     {
-        var cart = await _localStorage.GetItemAsync<List<CartItem>>("cart") ?? new List<CartItem>();
+        var cart = await _localStorage.GetItemAsync<List<CartItem>>(Key) ?? new List<CartItem>();
 
         return cart;
     }
 
     public async Task<List<CartProductResponse>> GetCartProductsAsync()
     {
-        var cartItems = await _localStorage.GetItemAsync<List<CartProductResponse>>("cart");
+        var cartItems = await _localStorage.GetItemAsync<List<CartProductResponse>>(Key);
         var response = await _httpClient.PostAsJsonAsync("api/cart/products", cartItems);
         var cartProducts = await response.Content.ReadFromJsonAsync<ServiceResponse<List<CartProductResponse>>>();
         
         return cartProducts.Data;
+    }
+
+    public async Task RemoveProductsFromCartAsync(int productId, int productTypeId)
+    {
+        var cart = await _localStorage.GetItemAsync<List<CartItem>>(Key);
+        
+        if (cart is null) return;
+
+        var cartItem = cart.Find(x => x.ProductId == productId && x.ProductTypeId == productTypeId);
+
+        if (cartItem is not null)
+        {
+            cart.Remove(cartItem);
+            await _localStorage.SetItemAsync(Key, cart);
+            OnChange?.Invoke();
+        }
     }
 }
