@@ -22,4 +22,11 @@ public class AuthService : IAuthService
 
         return await result.Content.ReadFromJsonAsync<ServiceResponse<string>>();
     }
+
+    public async Task<ServiceResponse<bool>> ChangePasswordAsync(UserChangePassword request)
+    {
+        var result = await _httpClient.PostAsJsonAsync("api/auth/change-password", request);
+        
+        return await result.Content.ReadFromJsonAsync<ServiceResponse<bool>>();
+    }
 }

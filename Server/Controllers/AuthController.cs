@@ -1,3 +1,5 @@
+using System.Security.Claims;
+
 namespace OnlineShop.Server.Controllers;
 
 [Route("api/[controller]")]
@@ -30,6 +32,18 @@ public class AuthController : ControllerBase
         if (!response.Success)
             return BadRequest(response);
 
+        return Ok(response);
+    }
+
+    [HttpPost("change-password"), Authorize]
+    public async Task<ActionResult<ServiceResponse<bool>>> ChangePassword([FromBody] string password)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var response = await _authService.ChangePasswordAsync(int.Parse(userId), password);
+
+        if (!response.Success)
+            BadRequest(response);
+        
         return Ok(response);
     }
 }

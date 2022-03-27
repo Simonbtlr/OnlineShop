@@ -12,8 +12,8 @@ global using OnlineShop.Shared.DTO;
 global using OnlineShop.Shared.DTO.Shop;
 global using OnlineShop.Shared.DTO.User;
 global using OnlineShop.Shared.Models.User;
+global using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
