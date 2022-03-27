@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace OnlineShop.Shared.Models;
+namespace OnlineShop.Shared.Models.Shop;
 
 public class ProductVariant
 {

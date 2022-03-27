@@ -1,4 +1,4 @@
-namespace OnlineShop.Shared.DTO;
+namespace OnlineShop.Shared.DTO.Shop;
 
 public class ServiceResponse<T>
 {

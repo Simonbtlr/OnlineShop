@@ -1,5 +1,7 @@
 using OnlineShop.Shared.DTO;
+using OnlineShop.Shared.DTO.Shop;
 using OnlineShop.Shared.Models;
+using OnlineShop.Shared.Models.Shop;
 
 namespace OnlineShop.Server.Services.ProductService;
 
@@ -58,7 +60,7 @@ public class ProductService : IProductService
 
     public async Task<ServiceResponse<ProductSearchResult>> SearchProductsAsync(string searchText, int page)
     {
-        var pageResults = 2f;
+        var pageResults = 5f;
         var pageCount = Math.Ceiling((await FindProductsBySearchTextAsync(searchText)).Count / pageResults);
         var products = await _context.Products
             .Where(x => x.Title.ToLower().Contains(searchText.ToLower()) || 

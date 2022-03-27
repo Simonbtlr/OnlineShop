@@ -1,4 +1,4 @@
-namespace OnlineShop.Shared.Models;
+namespace OnlineShop.Shared.Models.Shop;
 
 public class ProductType
 {

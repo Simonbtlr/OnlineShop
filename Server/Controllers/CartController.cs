@@ -1,3 +1,5 @@
+using OnlineShop.Shared.DTO.Shop;
+
 namespace OnlineShop.Server.Controllers;
 
 [Route("api/[controller]")]

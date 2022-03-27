@@ -1,4 +1,5 @@
 @page "/cart"
+@using OnlineShop.Shared.DTO.Shop
 @inject ICartService _cartService
 
 <PageTitle>Корзина</PageTitle>
@@ -22,15 +23,15 @@ else
                         <a href="/product/@product.ProductId">
                             @product.Title
                         </a>
-                        <span>@product.ProductType</span>
-                        <br />
-                        <input type="number" value="@product.Quantity" min="1" class="form-control input-quantity"
-                               @onchange="@(e => UpdateQuantity(e, product))" />
-                        <button class="btn-delete" 
-                                @onclick="@(() => RemoveProductFromCart(product.ProductId, product.ProductTypeId))">
-                            Удалить из корзины
-                        </button>
                     </h5>
+                    <span>@product.ProductType</span>
+                    <br />
+                    <input type="number" value="@product.Quantity" min="1" class="form-control input-quantity"
+                           @onchange="@(e => UpdateQuantity(e, product))" />
+                    <button class="btn-delete"
+                            @onclick="@(() => RemoveProductFromCart(product.ProductId, product.ProductTypeId))">
+                        Удалить из корзины
+                    </button>
                 </div>
                 <div class="cart-product-price">
                     @(product.Price * product.Quantity)₽
