@@ -1,14 +1,14 @@
-using System.Runtime.CompilerServices;
-
 namespace OnlineShop.Server.Services.CartService;
 
 public class CartService : ICartService
 {
     private readonly DataContext _context;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public CartService(DataContext context)
+    public CartService(DataContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<ServiceResponse<List<CartProductResponse>>> GetCartProductsAsync(List<CartItem> cartItems)
@@ -52,14 +52,16 @@ public class CartService : ICartService
         return result;
     }
 
-    public async Task<ServiceResponse<List<CartProductResponse>>> StoreCartItemsAsync(List<CartItem> cartItems, 
-        int userId)
+    public async Task<ServiceResponse<List<CartProductResponse>>> StoreCartItemsAsync(List<CartItem> cartItems)
     {
-        cartItems.ForEach(x => x.UserId = userId);
+        cartItems.ForEach(x => x.UserId = GetUserId());
         _context.CartItems.AddRange(cartItems);
         await _context.SaveChangesAsync();
 
-        return 
-            await GetCartProductsAsync(await _context.CartItems.Where(x => x.UserId == userId).ToListAsync());
+        return await GetCartProductsAsync(
+            await _context.CartItems.Where(x => x.UserId == GetUserId()).ToListAsync());
     }
+
+    private int GetUserId() =>
+        int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 }

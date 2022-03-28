@@ -24,8 +24,7 @@ public class CartController : ControllerBase
     public async Task<ActionResult<ServiceResponse<List<CartProductResponse>>>> StoreCartItemsAsync(
         List<CartItem> cartItems)
     {
-        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-        var result = await _cartService.StoreCartItemsAsync(cartItems, userId);
+        var result = await _cartService.StoreCartItemsAsync(cartItems);
         
         return Ok(result);
     }
