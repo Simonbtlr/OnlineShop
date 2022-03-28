@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace OnlineShop.Server.Services.CartService;
 
 public class CartService : ICartService
@@ -48,5 +50,16 @@ public class CartService : ICartService
         }
 
         return result;
+    }
+
+    public async Task<ServiceResponse<List<CartProductResponse>>> StoreCartItemsAsync(List<CartItem> cartItems, 
+        int userId)
+    {
+        cartItems.ForEach(x => x.UserId = userId);
+        _context.CartItems.AddRange(cartItems);
+        await _context.SaveChangesAsync();
+
+        return 
+            await GetCartProductsAsync(await _context.CartItems.Where(x => x.UserId == userId).ToListAsync());
     }
 }

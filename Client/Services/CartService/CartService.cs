@@ -10,7 +10,8 @@ public class CartService : ICartService
 
     private const string Key = "cart";
 
-    public CartService(ILocalStorageService localStorage, HttpClient httpClient, AuthenticationStateProvider authStateProvider)
+    public CartService(ILocalStorageService localStorage, HttpClient httpClient, 
+        AuthenticationStateProvider authStateProvider)
     {
         _localStorage = localStorage;
         _httpClient = httpClient;
@@ -84,5 +85,18 @@ public class CartService : ICartService
             cartItem.Quantity = product.Quantity;
             await _localStorage.SetItemAsync(Key, cart);
         }
+    }
+
+    public async Task StoreCartItemsAsync(bool emptyLocalCart = false)
+    {
+        var localCart = await _localStorage.GetItemAsync<List<CartItem>>(Key);
+
+        if (localCart is null)
+            return;
+
+        await _httpClient.PostAsJsonAsync("api/cart", localCart);
+
+        if (emptyLocalCart)
+            await _localStorage.RemoveItemAsync(Key);
     }
 }
