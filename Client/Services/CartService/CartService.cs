@@ -6,17 +6,24 @@ public class CartService : ICartService
     
     private readonly ILocalStorageService _localStorage;
     private readonly HttpClient _httpClient;
+    private readonly AuthenticationStateProvider _authStateProvider;
 
     private const string Key = "cart";
 
-    public CartService(ILocalStorageService localStorage, HttpClient httpClient)
+    public CartService(ILocalStorageService localStorage, HttpClient httpClient, AuthenticationStateProvider authStateProvider)
     {
         _localStorage = localStorage;
         _httpClient = httpClient;
+        _authStateProvider = authStateProvider;
     }
 
     public async Task AddToCartAsync(CartItem cartItem)
     {
+        if ((await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated)
+            Console.WriteLine("Пользователь авторизован");
+        else
+            Console.WriteLine("Пользователь не авторизован");
+        
         var cart = await _localStorage.GetItemAsync<List<CartItem>>(Key) ?? new List<CartItem>();
 
         var sameItem = 
