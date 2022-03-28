@@ -62,6 +62,12 @@ public class CartService : ICartService
             await _context.CartItems.Where(x => x.UserId == GetUserId()).ToListAsync());
     }
 
+    public async Task<ServiceResponse<int>> GetCartItemsCountAsync()
+    {
+        var count = (await _context.CartItems.Where(x => x.UserId == GetUserId()).ToListAsync()).Count;
+        return new ServiceResponse<int> { Data = count };
+    }
+
     private int GetUserId() =>
         int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 }
