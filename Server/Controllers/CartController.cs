@@ -42,4 +42,11 @@ public class CartController : ControllerBase
         
         return Ok(result);
     }
+
+    [HttpPost("add")]
+    public async Task<ActionResult<ServiceResponse<bool>>> AddToCartAsync(CartItem cartItem)
+    {
+        var result = await _cartService.AddToCartAsync(cartItem);
+        return Ok(result);
+    }
 }

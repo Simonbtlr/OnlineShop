@@ -73,6 +73,25 @@ public class CartService : ICartService
             await _context.CartItems.Where(x => x.UserId == GetUserId()).ToListAsync());
     }
 
+    public async Task<ServiceResponse<bool>> AddToCartAsync(CartItem cartItem)
+    {
+        cartItem.UserId = GetUserId();
+
+        var sameItem = await _context.CartItems.FirstOrDefaultAsync(x => 
+            x.ProductId == cartItem.ProductId && 
+            x.ProductTypeId == cartItem.ProductTypeId && 
+            x.UserId == cartItem.UserId);
+
+        if (sameItem is null)
+            _context.CartItems.Add(cartItem);
+        else
+            sameItem.Quantity += cartItem.Quantity;
+
+        await _context.SaveChangesAsync();
+
+        return new ServiceResponse<bool> { Data = true };
+    }
+
     private int GetUserId() =>
-        int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+        int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)); 
 }

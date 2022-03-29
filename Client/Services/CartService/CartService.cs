@@ -21,21 +21,21 @@ public class CartService : ICartService
     public async Task AddToCartAsync(CartItem cartItem)
     {
         if (await IsUserAuthenticated())
-            Console.WriteLine("Пользователь авторизован");
+            await _httpClient.PostAsJsonAsync("api/cart/add", cartItem);
         else
-            Console.WriteLine("Пользователь не авторизован");
-        
-        var cart = await _localStorage.GetItemAsync<List<CartItem>>(Key) ?? new List<CartItem>();
+        {
+            var cart = await _localStorage.GetItemAsync<List<CartItem>>(Key) ?? new List<CartItem>();
 
-        var sameItem = 
-            cart.Find(x => x.ProductId == cartItem.ProductId && x.ProductTypeId == cartItem.ProductTypeId);
+            var sameItem = cart.Find(x => 
+                x.ProductId == cartItem.ProductId && x.ProductTypeId == cartItem.ProductTypeId);
 
-        if (sameItem is null)
-            cart.Add(cartItem);
-        else
-            sameItem.Quantity += cartItem.Quantity;
+            if (sameItem is null)
+                cart.Add(cartItem);
+            else
+                sameItem.Quantity += cartItem.Quantity;
 
-        await _localStorage.SetItemAsync("cart", cart);
+            await _localStorage.SetItemAsync("cart", cart);
+        }
         await GetCartItemsCountAsync();
     }
 
