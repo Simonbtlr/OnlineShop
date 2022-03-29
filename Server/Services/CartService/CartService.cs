@@ -92,6 +92,28 @@ public class CartService : ICartService
         return new ServiceResponse<bool> { Data = true };
     }
 
+    public async Task<ServiceResponse<bool>> UpdateQuantityAsync(CartItem cartItem)
+    {
+        var dbCartItem = await _context.CartItems.FirstOrDefaultAsync(x => 
+            x.ProductId == cartItem.ProductId && x.ProductTypeId == cartItem.ProductTypeId &&
+            x.UserId == GetUserId());
+
+        if (dbCartItem is null)
+        {
+            return new ServiceResponse<bool>
+            {
+                Success = false,
+                Data = false, 
+                Message = "Предмет в корзине не существует."
+            };
+        }
+
+        dbCartItem.Quantity = cartItem.Quantity;
+        await _context.SaveChangesAsync();
+
+        return new ServiceResponse<bool> { Data = true };
+    }
+
     private int GetUserId() =>
         int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)); 
 }

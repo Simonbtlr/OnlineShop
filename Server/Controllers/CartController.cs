@@ -11,13 +11,18 @@ public class CartController : ControllerBase
         _cartService = cartService;
     }
 
-    [HttpPost("products")]
-    public async Task<ActionResult<ServiceResponse<List<CartProductResponse>>>> GetCartProductsAsync(
-        List<CartItem> cartItems)
+    [HttpGet]
+    public async Task<ActionResult<ServiceResponse<int>>> GetDbCartProductsAsync()
     {
-        var result = await _cartService.GetCartProductsAsync(cartItems);
+        var result = await _cartService.GetDbCartProductsAsync();
         
         return Ok(result);
+    }
+
+    [HttpGet("count")]
+    public async Task<ActionResult<ServiceResponse<int>>> GetCartItemsCountAsync()
+    {
+        return Ok(await _cartService.GetCartItemsCountAsync());
     }
 
     [HttpPost]
@@ -29,24 +34,28 @@ public class CartController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("count")]
-    public async Task<ActionResult<ServiceResponse<int>>> GetCartItemsCountAsync()
-    {
-        return await _cartService.GetCartItemsCountAsync();
-    }
-
-    [HttpGet]
-    public async Task<ActionResult<ServiceResponse<int>>> GetDbCartProductsAsync()
-    {
-        var result = await _cartService.GetDbCartProductsAsync();
-        
-        return Ok(result);
-    }
-
     [HttpPost("add")]
     public async Task<ActionResult<ServiceResponse<bool>>> AddToCartAsync(CartItem cartItem)
     {
         var result = await _cartService.AddToCartAsync(cartItem);
+        
+        return Ok(result);
+    }
+
+    [HttpPost("products")]
+    public async Task<ActionResult<ServiceResponse<List<CartProductResponse>>>> GetCartProductsAsync(
+        List<CartItem> cartItems)
+    {
+        var result = await _cartService.GetCartProductsAsync(cartItems);
+        
+        return Ok(result);
+    }
+
+    [HttpPut("update-quantity")]
+    public async Task<ActionResult<ServiceResponse<bool>>> UpdateQuantity(CartItem cartItem)
+    {
+        var result = await _cartService.UpdateQuantityAsync(cartItem);
+
         return Ok(result);
     }
 }
