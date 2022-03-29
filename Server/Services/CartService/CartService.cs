@@ -114,6 +114,28 @@ public class CartService : ICartService
         return new ServiceResponse<bool> { Data = true };
     }
 
-    private int GetUserId() =>
-        int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)); 
+    public async Task<ServiceResponse<bool>> RemoveItemFromCartAsync(int productId, int productTypeId)
+    {
+        var dbCartItem = await _context.CartItems.FirstOrDefaultAsync(x =>
+            x.ProductId == productId && x.ProductTypeId == productTypeId &&
+            x.UserId == GetUserId());
+
+        if (dbCartItem is null)
+        {
+            return new ServiceResponse<bool>
+            {
+                Success = false,
+                Data = false, 
+                Message = "Предмет в корзине не существует."
+            };
+        }
+
+        _context.CartItems.Remove(dbCartItem);
+        await _context.SaveChangesAsync();
+
+        return new ServiceResponse<bool> { Data = true };
+    }
+
+    private int GetUserId() => 
+        int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 }
