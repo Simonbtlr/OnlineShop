@@ -6,6 +6,7 @@ global using Microsoft.EntityFrameworkCore;
 global using OnlineShop.Server.Data;
 global using OnlineShop.Server.Services.AuthService;
 global using OnlineShop.Server.Services.CartService;
+global using OnlineShop.Server.Services.OrderService;
 global using OnlineShop.Server.Services.CategoryService;
 global using OnlineShop.Server.Services.ProductService;
 global using OnlineShop.Shared;
@@ -25,6 +26,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
