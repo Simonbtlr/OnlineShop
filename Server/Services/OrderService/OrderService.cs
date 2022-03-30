@@ -44,4 +44,31 @@ public class OrderService : IOrderService
 
         return new ServiceResponse<bool> {Data = true};
     }
+
+    public async Task<ServiceResponse<List<OrderOverviewResponse>>> GetOrdersAsync()
+    {
+        var response = new ServiceResponse<List<OrderOverviewResponse>>();
+        var orders = await _context.Orders
+            .Include(x => x.OrderItems)
+            .ThenInclude(x => x.ProductId)
+            .Where(x => x.UserId == _authService.GetUserId())
+            .OrderByDescending(x => x.OrderDate)
+            .ToListAsync();
+        var orderResponse = new List<OrderOverviewResponse>();
+        
+        orders.ForEach(x => orderResponse.Add(new OrderOverviewResponse
+        {
+            Id = x.Id,
+            OrderDate = x.OrderDate,
+            TotalPrice = x.TotalPrice,
+            Product = x.OrderItems.Count > 1 ? 
+                $"{x.OrderItems.First().Product.Title} и ещё {x.OrderItems.Count - 1}." :
+                x.OrderItems.First().Product.Title,
+            ProductImageUrl = x.OrderItems.First().Product.ImageUrl
+        }));
+
+        response.Data = orderResponse;
+
+        return response;
+    }
 }

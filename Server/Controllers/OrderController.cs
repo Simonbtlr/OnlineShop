@@ -11,6 +11,14 @@ public class OrderController : ControllerBase
         _orderService = orderService;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<ServiceResponse<List<OrderOverviewResponse>>>> GetOrdersAsync()
+    {
+        var result = await _orderService.GetOrdersAsync();
+        
+        return result;
+    }
+
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<bool>>> PlaceOrderAsync()
     {
