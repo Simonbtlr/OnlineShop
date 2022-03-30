@@ -139,6 +139,8 @@ public class CartService : ICartService
             var cart = await _localStorage.GetItemAsync<List<CartItem>>(Key);
             await _localStorage.SetItemAsync("cartItemsCount", cart?.Count ?? 0);
         }
+
+        OnChange?.Invoke();
     }
 
     private async Task<bool> IsUserAuthenticated()
