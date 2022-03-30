@@ -10,6 +10,10 @@
 {
     <span>@_message</span>
 }
+else if (orderPlaced)
+{
+    <span>Спасибо за покупку! Вы можете проверить статус заказа <a href="orders">тут</a>.</span>
+}
 else
 {
     <div>
@@ -49,9 +53,11 @@ else
 @code {
     List<CartProductResponse> _cartProducts;
     string _message = "Загрузка корзины...";
+    bool orderPlaced;
 
     protected override async Task OnInitializedAsync()
     {
+        orderPlaced = false;
         await LoadCartAsync();
     }
 
@@ -83,5 +89,7 @@ else
     private async Task PlaceOrder()
     {
         await _orderService.PlaceOrderAsync();
+        await _cartService.GetCartItemsCountAsync();
+        orderPlaced = true;
     }
 }
