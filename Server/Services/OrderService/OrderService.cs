@@ -72,4 +72,45 @@ public class OrderService : IOrderService
 
         return response;
     }
+
+    public async Task<ServiceResponse<OrderDetailsResponse>> GetOrderDetailsAsync(int orderId)
+    {
+        var response = new ServiceResponse<OrderDetailsResponse>();
+        var order = await _context.Orders
+            .Include(x => x.OrderItems)
+            .ThenInclude(x => x.Product)
+            .Include(x => x.OrderItems)
+            .ThenInclude(x => x.ProductType)
+            .Where(x => x.UserId == _authService.GetUserId() && x.Id == orderId)
+            .OrderByDescending(x => x.OrderDate)
+            .FirstOrDefaultAsync();
+
+        if (order is null)
+        {
+            response.Success = false;
+            response.Message = "Заказ не найден.";
+            return response;
+        }
+
+        var orderDetailsResponse = new OrderDetailsResponse
+        {
+            OrderDate = order.OrderDate,
+            TotalPrice = order.TotalPrice,
+            Products = new List<OrderDetailsProductResponse>()
+        };
+        
+        order.OrderItems.ForEach(x => orderDetailsResponse.Products.Add(new OrderDetailsProductResponse
+        {
+            ProductId = x.ProductId,
+            ImageUrl = x.Product.ImageUrl,
+            ProductType = x.ProductType.Name,
+            Quantity = x.Quantity,
+            Title = x.Product.Title,
+            TotalPrice = x.TotalPrice
+        }));
+
+        response.Data = orderDetailsResponse;
+
+        return response;
+    }
 }

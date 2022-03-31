@@ -9,7 +9,6 @@ global using OnlineShop.Server.Services.CartService;
 global using OnlineShop.Server.Services.OrderService;
 global using OnlineShop.Server.Services.CategoryService;
 global using OnlineShop.Server.Services.ProductService;
-global using OnlineShop.Shared;
 global using OnlineShop.Shared.DTO.Shop;
 global using OnlineShop.Shared.Models.Shop;
 global using OnlineShop.Shared.Models.User;

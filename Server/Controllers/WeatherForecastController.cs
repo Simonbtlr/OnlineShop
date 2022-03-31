@@ -1,3 +1,5 @@
+using OnlineShop.Shared;
+
 namespace OnlineShop.Server.Controllers;
 
 [ApiController]

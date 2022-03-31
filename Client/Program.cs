@@ -4,7 +4,6 @@ global using System.Text.Json;
 global using System.Security.Claims;
 global using Blazored.LocalStorage;
 global using Microsoft.AspNetCore.Components.Authorization;
-global using OnlineShop.Shared;
 global using OnlineShop.Shared.DTO.Shop;
 global using OnlineShop.Shared.DTO.User;
 global using OnlineShop.Shared.Models.Shop;

@@ -19,6 +19,14 @@ public class OrderController : ControllerBase
         return result;
     }
 
+    [HttpGet("{orderId}")]
+    public async Task<ActionResult<ServiceResponse<OrderDetailsResponse>>> GetOrderDetilsAsync(int orderId)
+    {
+        var result = await _orderService.GetOrderDetailsAsync(orderId);
+        
+        return result;
+    }
+
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<bool>>> PlaceOrderAsync()
     {

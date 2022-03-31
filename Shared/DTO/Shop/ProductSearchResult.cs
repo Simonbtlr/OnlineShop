@@ -1,6 +1,6 @@
 using OnlineShop.Shared.Models.Shop;
 
-namespace OnlineShop.Shared;
+namespace OnlineShop.Shared.DTO.Shop;
 
 public class ProductSearchResult
 {
