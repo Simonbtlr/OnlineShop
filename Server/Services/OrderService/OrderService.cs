@@ -50,10 +50,11 @@ public class OrderService : IOrderService
         var response = new ServiceResponse<List<OrderOverviewResponse>>();
         var orders = await _context.Orders
             .Include(x => x.OrderItems)
-            .ThenInclude(x => x.ProductId)
+            .ThenInclude(x => x.Product)
             .Where(x => x.UserId == _authService.GetUserId())
             .OrderByDescending(x => x.OrderDate)
             .ToListAsync();
+        
         var orderResponse = new List<OrderOverviewResponse>();
         
         orders.ForEach(x => orderResponse.Add(new OrderOverviewResponse
@@ -62,7 +63,7 @@ public class OrderService : IOrderService
             OrderDate = x.OrderDate,
             TotalPrice = x.TotalPrice,
             Product = x.OrderItems.Count > 1 ? 
-                $"{x.OrderItems.First().Product.Title} и ещё {x.OrderItems.Count - 1}." :
+                $"{x.OrderItems.First().Product.Title} и ещё {x.OrderItems.Count - 1}..." :
                 x.OrderItems.First().Product.Title,
             ProductImageUrl = x.OrderItems.First().Product.ImageUrl
         }));
